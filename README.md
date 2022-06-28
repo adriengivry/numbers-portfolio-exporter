@@ -1,4 +1,6 @@
 # Stock Portfolio Exporter
+Command-line utility to export stock portfolio from Apple Numbers to Yahoo Finance and [Ticker](https://github.com/achannarasappa/ticker).
+
 ## Quick Start
 ```properties
 # Installation
