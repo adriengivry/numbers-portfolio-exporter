@@ -16,7 +16,7 @@ def main():
 	args = parser.parse_args()
 	document = Document(args.input)
 	export(document, args.output)
-	print("Success! %s created")
+	print("Success! %s created" % args.output)
 
 if __name__ == '__main__':
 	main()
