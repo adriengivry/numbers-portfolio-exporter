@@ -11,7 +11,7 @@ pip install -e .
 ticker-exporter portfolio.numbers ~/.ticker.base.yaml
 
 # Yahoo Exporter Example
-yahoo-exporter portfolio.numbers output.csv
+yahoo-exporter portfolio.numbers ./
 ```
 
 ## Stock Portfolio Sheet Format (.numbers)
