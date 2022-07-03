@@ -64,6 +64,9 @@ class Exporter:
             allEntries = list()
 
             for account, transactionList in self.transactionsPerAccount.items():
+                if self.verbose:
+                    print(f'------ Account: {account} ------')
+
                 accountEntries = list()
 
                 for transaction in transactionList:
@@ -89,6 +92,9 @@ class Exporter:
             makedirs(outputFolder)
 
         for account, transactionList in self.transactionsPerAccount.items():
+            if self.verbose:
+                print(f'------ Account: {account} ------')
+                
             with open(outputFolder + account + '.csv', 'w', newline='') as csvfile:
                 filewriter = csv.writer(csvfile, delimiter=',')
 
