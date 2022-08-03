@@ -12,6 +12,7 @@ class Exporter:
     DEFAULT_SHEET_INDEX = 0
     DEFAULT_TABLE_INDEX = 0
     DEFAULT_HEADER_ROWS = 1
+    DEFAULT_CURRENCY_SPLIT = False
     DEFAULT_VERBOSITY = False
 
     # Ticker
@@ -24,6 +25,7 @@ class Exporter:
             sheetIndex: int = DEFAULT_SHEET_INDEX,
             tableIndex: int = DEFAULT_TABLE_INDEX,
             headerRows: int = DEFAULT_HEADER_ROWS,
+            currencySplit: bool = DEFAULT_CURRENCY_SPLIT,
             verbose: bool = DEFAULT_VERBOSITY):
         """Creates the exporter"""
         self.document = Document(filepath)
@@ -32,6 +34,7 @@ class Exporter:
         self.rows = self.table.rows()
         self.headerRows = headerRows
         self.transactionsPerAccount = dict()
+        self.currencySplit = currencySplit
         self.verbose = verbose
         self.parse_transactions()
 
@@ -44,11 +47,13 @@ class Exporter:
             quantity = self.rows[i][2].value
             date = self.rows[i][3].value.strftime("%Y%m%d")
             account = self.rows[i][4].value
+            currency = self.rows[i][5].value
+            accountName = f'{account} ({currency})' if self.currencySplit else account
 
-            if not account in self.transactionsPerAccount:
-                self.transactionsPerAccount[account] = list()
+            if not accountName in self.transactionsPerAccount:
+                self.transactionsPerAccount[accountName] = list()
 
-            self.transactionsPerAccount[account].append(dict({"symbol": symbol, "quantity": quantity, "price": price, "date": date}))
+            self.transactionsPerAccount[accountName].append(dict({"symbol": symbol, "quantity": quantity, "price": price, "date": date}))
 
     def to_ticker_yaml(self,
             inputConfigPath: str = DEFAULT_TICKER_INPUT_CONFIG_PATH,

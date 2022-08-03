@@ -4,6 +4,7 @@ from numbers_portfolio_exporter import Exporter
 def add_generic_arguments(parser: argparse.ArgumentParser):
 	parser.add_argument(dest='filepath', help='path to the input spreadsheet (.numbers)')
 	parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', required=False, default=Exporter.DEFAULT_VERBOSITY, help='provides additional details during exports')
+	parser.add_argument('-cs', '--currency-split', dest='currency_split', action='store_true', required=False, default=Exporter.DEFAULT_CURRENCY_SPLIT, help='determines if holdings in the same account with different currencies should be separated')
 	parser.add_argument('-s', '--sheet-index', dest='sheet_index', type=int, required=False, default=Exporter.DEFAULT_SHEET_INDEX, help='determines the sheet to target in the .numbers file')
 	parser.add_argument('-t', '--table-index', dest='table_index', type=int, required=False, default=Exporter.DEFAULT_TABLE_INDEX, help='determines the table to target in the current sheet')
 	parser.add_argument('-hr', '--header-rows', dest='header_rows', type=int, required=False, default=Exporter.DEFAULT_HEADER_ROWS, help='determines the size of the header in the transaction table')
@@ -19,6 +20,7 @@ def create_exporter(args):
 		sheetIndex = args.sheet_index,
 		tableIndex = args.table_index,
 		headerRows = args.header_rows,
+		currencySplit = args.currency_split,
 		verbose = args.verbose)
 
 def numbers_to_yahoo_csv_command():
